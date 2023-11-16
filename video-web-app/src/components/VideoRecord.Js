@@ -18,8 +18,7 @@ function VideoRecord() {
         mediaRecorderRef.current.stop();
         setRecording(false);
 
-        // Handle the recorded video here
-        // For example, you can save it or upload it to the server
+        // Does stop record get uploaded to server straight or saved locally?
     };
 
     return (

@@ -7,10 +7,10 @@ namespace VideoWebAppApi.Models
 {
     public class Video
     {
-        public int Id { get; set; }
-        public string VideoName { get; set; } = null!;
-        public string VideoDescription { get; set; } = null!;
-        public string Url { get; set; } = null!;
+        public int? Id { get; set; }
+        public string? VideoName { get; set; }
+        public string? VideoDescription { get; set; }
+        public string? Url { get; set; }
 
     }
 }

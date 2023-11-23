@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\VideoWebAppApi\\VideoWebAppApi.csproj": {}
+    "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\videowebappapi\\VideoWebAppApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\VideoWebAppApi\\VideoWebAppApi.csproj": {
+    "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\videowebappapi\\VideoWebAppApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\VideoWebAppApi\\VideoWebAppApi.csproj",
+        "projectUniqueName": "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\videowebappapi\\VideoWebAppApi.csproj",
         "projectName": "VideoWebAppApi",
-        "projectPath": "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\VideoWebAppApi\\VideoWebAppApi.csproj",
+        "projectPath": "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\videowebappapi\\VideoWebAppApi.csproj",
         "packagesPath": "C:\\Users\\kunge\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\VideoWebAppApi\\obj\\",
+        "outputPath": "C:\\Users\\kunge\\OneDrive\\Dokument\\GitHub\\Video-web-app\\videowebappapi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

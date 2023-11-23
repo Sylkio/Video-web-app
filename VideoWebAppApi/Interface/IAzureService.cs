@@ -8,5 +8,6 @@ namespace VideoWebAppApi.Interface
     public interface IAzureService
     {
         string GenerateSasToken(string containerName, string blobName);
+        Task<string> UploadFileToStorage(IFormFile file);
     }
 }

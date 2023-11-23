@@ -1,21 +1,47 @@
 using Microsoft.EntityFrameworkCore;
-using VideoWebAppApi.Data; 
+using VideoWebAppApi.Data;
 using VideoWebAppApi.Interface;
-using VideoWebAppApi.Service; 
+using VideoWebAppApi.Service;
+using Microsoft.OpenApi.Models;
+using Azure.Storage.Blobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-// Register AzureService (You need to implement this according to your Azure Blob Storage setup)
+// Add Swagger
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "VideoWebApp API",
+        Version = "v1",
+        Description = "API for Video Web Application"
+    });
+    // Add more Swagger configuration if needed
+});
+
+// Register AzureService
 builder.Services.AddScoped<IAzureService, AzureService>();
 
-// Register AppDbContext
+// Set up CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        policyBuilder => policyBuilder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
+// Register AppDbContext with SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register BlobServiceClient for Azure Blob Storage
+var blobStorageConnectionString = builder.Configuration.GetValue<string>("BlobConnectionString");
+builder.Services.AddSingleton(new BlobServiceClient(blobStorageConnectionString));
 
 var app = builder.Build();
 
@@ -23,28 +49,19 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "VideoWebApp API V1");
+        c.RoutePrefix = string.Empty; // Swagger UI at the app's root in development
+    });
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseCors("CorsPolicy");
+
 app.MapControllers();
 
 app.Run();
-
-try
-{
-    app.Run();
-    Log.Information("API is now ready to serve files to and from Azure Cloud Storage...");
-}
-catch (Exception ex) when (!ex.GetType().Name.Equals("StopTheHostException", StringComparison.Ordinal))
-{
-    Log.Fatal(ex, "Unhandled Exception");
-}
-finally
-{
-    Log.Information("Azure Storage API Shutting Down...");
-    Log.CloseAndFlush();
-}

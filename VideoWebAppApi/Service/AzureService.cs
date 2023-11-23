@@ -8,6 +8,7 @@ using Azure.Storage.Sas;
 using VideoWebAppApi.Interface;
 using Microsoft.Extensions.Configuration;
 using VideoWebAppApi.Models;
+using Azure.Storage.Blobs.Models;
 
 namespace VideoWebAppApi.Service
 {
@@ -47,6 +48,26 @@ namespace VideoWebAppApi.Service
 
             return sasToken;
         }
-        
+        public async Task<string> UploadFileToStorage(IFormFile file)
+        {
+            try
+            {
+                var containerClient = new BlobServiceClient(_storageConnectionString).GetBlobContainerClient(_storageContainerName);
+                var blobClient = containerClient.GetBlobClient(file.FileName);
+
+                using (var stream = file.OpenReadStream())
+                {
+                    await blobClient.UploadAsync(stream, new BlobHttpHeaders { ContentType = file.ContentType });
+                }
+
+                return blobClient.Uri.AbsoluteUri;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error occurred while uploading to Azure Blob Storage: {ex.Message}");
+                throw;
+            }
+        }
+
     }
 }

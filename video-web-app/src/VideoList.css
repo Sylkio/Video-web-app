@@ -1,0 +1,25 @@
+.video-list-container {
+    margin: 20px;
+}
+
+.video-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.video-item video {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.video-metadata {
+    text-align: left;
+    font-size: 14px;
+}
+
+.video-title {
+    font-weight: bold;
+}

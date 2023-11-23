@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // Import useState here
 import VideoUpload from './components/VideoUpload';
-import VideoPlayer from './components/VideoPlayer';
+import VideoList from './components/VideoList';
+import './VideoList.css';
 
 function App() {
     const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
-
 
     const handleVideoSelect = (videoUrl) => {
         setCurrentVideoUrl(videoUrl);
@@ -14,7 +14,7 @@ function App() {
         <div className="App">
             <h1>Video Web Application</h1>
             <VideoUpload onVideoSelect={handleVideoSelect} />
-            <VideoPlayer videoUrl={currentVideoUrl} />
+            <VideoList videoUrl={currentVideoUrl} />
         </div>
     );
 }

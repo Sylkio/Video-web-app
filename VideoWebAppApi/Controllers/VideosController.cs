@@ -23,11 +23,11 @@ namespace VideoWebAppApi.Controllers
             _context = context;
         }
 
-        [HttpGet("sas-token")]
-        public IActionResult GenerateSasToken()
+        [HttpGet("sas-token/{containerName}/{blobName}")]
+        public IActionResult GenerateSasToken(string containerName, string blobName)
         {
-            var videos = _context?.Videos.ToList();
-            return Ok(videos);
+            var token = _azureService.GenerateSasToken(containerName, blobName);
+            return Ok(new { token });
         }
         [HttpPost]
         public async Task<IActionResult> saveVideoMetaData([FromBody] VideoMetaDto videoMetadata)
@@ -48,6 +48,31 @@ namespace VideoWebAppApi.Controllers
         {
             var videos = await _context.Videos.ToListAsync();
             return Ok(videos);
+        }
+
+        [HttpPost("Video-Upload")]
+        public async Task<IActionResult> UploadVideo(IFormFile file)
+        {
+            if (file.Length > 0 && IsSupportedFileType(file.FileName))
+            {
+                // validate file
+                if (file.Length > 200 * 1024 * 1024)
+                {
+                    return BadRequest("File bigger");
+                }
+
+                //
+                var fileUrl = await _azureService.UploadFileToStorage(file);
+                return Ok(new { fileUrl });
+
+            }
+            return Ok();    
+
+        }
+        private bool IsSupportedFileType(string fileName)
+        {
+            var supportedTypes = new[] { ".mp4", ".mov", ".hevc", ".webm" };
+            return supportedTypes.Any(t => fileName.EndsWith(t, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

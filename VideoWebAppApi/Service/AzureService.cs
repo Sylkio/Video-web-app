@@ -19,11 +19,11 @@ namespace VideoWebAppApi.Service
         private readonly string _storageContainerName;
         private readonly ILogger<AzureService> _logger;
 
-        public AzureService(IConfiguration configuration, ILogger<AzureService> Logger)
+        public AzureService(IConfiguration configuration, ILogger<AzureService> logger)
         {
             _storageConnectionString = configuration.GetValue<string>("BlobConnectionString");
             _storageContainerName = configuration.GetValue<string>("BlobContainerName");
-            _logger = Logger;
+            _logger = logger;
         }
         #endregion
 

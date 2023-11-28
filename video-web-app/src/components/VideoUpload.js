@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { uploadVideo } from '../services/apiService';
+import { uploadVideo } from '../services/apiService'; 
 
 const VideoUpload = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -11,9 +11,7 @@ const VideoUpload = () => {
     const handleUpload = async () => {
         if (selectedFile) {
             await uploadVideo(selectedFile);
-            // Handle post-upload logic (e.g., refresh video list)
-
-
+            // Handle post-upload logic   
         }
     };
 

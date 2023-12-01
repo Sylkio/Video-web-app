@@ -7,12 +7,13 @@ export const uploadVideo = async (file) => {
     formData.append('file', file);
 
     try {
-        await axios.post(`${API_BASE_URL}/videos/upload`, formData);
-        // Handle success
+        const response = await axios.post(`${API_BASE_URL}/videos/Video-Upload`, formData); // Change to /Video-Upload
+        console.log("Upload response:", response);
     } catch (error) {
-        // Handle error
+        console.error("Upload error:", error);
     }
 };
+
 
 export const getVideos = async () => {
     try {
